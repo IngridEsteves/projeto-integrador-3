@@ -148,8 +148,8 @@ def listar_desafio(request):
 
 def desafio(request, id):
     desafio = Desafio.objects.get(id=id)
-    if not desafio.user == request.user:
-        raise Http404()
+    # if not desafio.user == request.user:
+    #   raise Http404()
     if request.method == 'GET':
         acertos = desafio.flashcards.filter(respondido=True).filter(acertou=True).count()
         erros = desafio.flashcards.filter(respondido=True).filter(acertou=False).count()
@@ -175,8 +175,8 @@ def responder_flashcard(request, id):
     acertou = request.GET.get('acertou')
     desafio_id = request.GET.get('desafio_id')
 
-    if not flashcard_desafio.flashcard.user == request.user:
-        raise Http404()
+    # if not flashcard_desafio.flashcard.user == request.user:
+    #    raise Http404()
 
     flashcard_desafio.respondido = True
     flashcard_desafio.acertou = True if acertou == '1' else False
