@@ -67,4 +67,5 @@ def inicio(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    usuario = request.user
+    return render(request, 'home.html', {'usuario': usuario})

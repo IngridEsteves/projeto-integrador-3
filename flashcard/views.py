@@ -13,7 +13,8 @@ def novo_flashcard(request):
     if request.method == 'GET':
         categorias = Categoria.objects.all()
         dificuldades = Flashcard.DIFICULDADE_CHOICES
-        flashcards = Flashcard.objects.filter(user=request.user)
+        # flashcards = Flashcard.objects.filter(user=request.user)
+        flashcards = Flashcard.objects.all()
 
         categoria_filtrar = request.GET.get('categoria')
         dificuldade_filtrar = request.GET.get('dificuldade')
@@ -104,9 +105,15 @@ def iniciar_desafio(request):
 
         desafio.categoria.add(*categorias)
 
-        flashcards = (
+        '''flashcards = (
             Flashcard.objects.filter(user=request.user)
             .filter(dificuldade=dificuldade)
+            .filter(categoria_id__in=categorias)
+            .order_by('?')
+        )'''
+
+        flashcards = (
+            Flashcard.objects.filter(dificuldade=dificuldade)
             .filter(categoria_id__in=categorias)
             .order_by('?')
         )
