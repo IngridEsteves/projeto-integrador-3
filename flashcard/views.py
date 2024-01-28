@@ -154,6 +154,9 @@ def desafio(request, id):
         acertos = desafio.flashcards.filter(respondido=True).filter(acertou=True).count()
         erros = desafio.flashcards.filter(respondido=True).filter(acertou=False).count()
         faltantes = desafio.flashcards.filter(respondido=False).count()
+        # categ = desafio.flashcards.all.distinct()
+        # categ = desafio.flashcards.all().values('flashcard.categoria').distinct()
+        # categ = Flashcard.objects.values('categoria').distinct()
         return render(
             request,
             'desafio.html',
@@ -162,6 +165,7 @@ def desafio(request, id):
                 'acertos': acertos,
                 'erros': erros,
                 'faltantes': faltantes,
+                # 'categorias': categ,
             },
         )
 
@@ -178,3 +182,22 @@ def responder_flashcard(request, id):
     flashcard_desafio.acertou = True if acertou == '1' else False
     flashcard_desafio.save()
     return redirect(f'/flashcard/desafio/{desafio_id}/')
+
+
+def relatorio(request, id):
+    desafio = Desafio.objects.get(id=id)
+
+    acertos = desafio.flashcards.filter(acertou=True).count()
+    erros = desafio.flashcards.filter(acertou=False).count()
+
+    dados = [acertos, erros]
+
+    categorias = desafio.categoria.all()
+    name_categoria = [i.nome for i in categorias]
+
+    dados2 = []
+    for categoria in categorias:
+        dados2.append(desafio.flashcards.filter(flashcard__categoria=categoria).filter(acertou=True).count())
+
+    # TODO: Fazer o ranking das matérias
+    return render(request, 'relatorio.html', {'desafio': desafio, 'dados': dados, 'categorias': name_categoria, 'dados2': dados2, },)
