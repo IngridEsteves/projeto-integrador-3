@@ -31,7 +31,7 @@ def cadastro(request):
             messages.add_message(
                 request, constants.SUCCESS, 'Usuário cadastrado com sucesso.'
             )
-            return redirect('/usuarios/login')
+            return redirect('/usuarios/inicio')
         except:
             messages.add_message(
                 request, constants.ERROR, 'Erro interno do sistema'
@@ -60,3 +60,7 @@ def logar(request):
 def logout(request):
     auth.logout(request)
     return redirect('/usuarios/login')
+
+
+def inicio(request):
+    return render(request, 'inicio.html')
