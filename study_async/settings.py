@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'usuarios',
     'flashcard',
     'apostilas',
+    'social',
 ]
 
 MIDDLEWARE = [

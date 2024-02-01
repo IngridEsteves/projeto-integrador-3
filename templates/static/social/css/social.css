@@ -1,0 +1,13 @@
+.perfil-imagem-capa{
+    background: url('/media/post.perfil.imagem_capa');
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center"
+}
+
+.perfil-imagem-sem-capa{
+    background: url('static/media/img/bg01.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center";
+}

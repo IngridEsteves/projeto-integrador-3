@@ -2,9 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.messages import constants
 from django.contrib import messages, auth
+from social.models import Perfil
 
-
-# Create your views here.
 def cadastro(request):
     if request.method == 'GET':
         return render(request, 'cadastro.html')
@@ -28,6 +27,12 @@ def cadastro(request):
                 username=username,
                 password=confirmar_senha,
             )
+
+            perfil = Perfil(nome=username,
+                telefone="",
+                nome_empresa="",
+                usuario=user)
+            perfil.save()
             messages.add_message(
                 request, constants.SUCCESS, 'Usuário cadastrado com sucesso.'
             )
